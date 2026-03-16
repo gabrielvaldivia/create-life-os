@@ -149,11 +149,15 @@ First-time setup. Walk through configuring your Life OS step by step.
     - `/morning` — run this when you start your day. Schedule, weather, what needs your attention.
     - `/digest` — run this before you wrap up. Captures what happened, what shipped, what's still open.
     - `/journal` — jot something down anytime.
+    - `/sync` — pull from all your connected sources and update your people files.
+
+    **Automation:**
+    - `/start` — run this once when you open Claude Code. It sets up background loops for morning briefings, digests, and syncing so they happen automatically while your session is open.
 
     **When you're ready:**
     - `/goals` — set structured goals tied to your life pillars.
 
-    Start with `/morning` tomorrow. The system grows with you — don't try to set up everything at once."
+    Start with `/morning` tomorrow — or run `/start` to kick off automation right away. The system grows with you — don't try to set up everything at once."
 
 14. **Commit.** Stage all new and modified files. Commit with the message: "Initial Life OS setup". Do not push unless they ask.
 

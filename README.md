@@ -18,10 +18,12 @@ The setup skill walks you through everything: who you are, what matters to you, 
 | Skill | What it does |
 |-------|-------------|
 | `/setup` | First-time setup. Configures your Life OS from scratch. |
+| `/start` | Start automation loops for morning, digest, and sync. Run once per session. |
 | `/journal` | Append a timestamped entry to today's journal. |
 | `/morning` | Morning briefing. Schedule, weather, what needs your attention. |
 | `/digest` | End-of-day recap. What happened, what shipped, what's still open. |
 | `/goals` | Set structured goals tied to your life pillars. |
+| `/sync` | Pull from all connected sources and update your files. |
 
 ## Data Sources
 

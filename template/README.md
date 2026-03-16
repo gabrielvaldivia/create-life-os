@@ -15,6 +15,7 @@ Run `/setup` in Claude Code to configure your Life OS.
 | `/morning` | Morning briefing. Schedule, weather, what needs your attention. |
 | `/digest` | End-of-day recap. What happened, what shipped, what's still open. |
 | `/goals` | Set structured goals tied to your life pillars. |
+| `/sync` | Pull from all connected sources and update your files. |
 
 ## How it works
 

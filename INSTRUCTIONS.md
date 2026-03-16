@@ -73,19 +73,24 @@ All data sources are optional. Skills work with whatever you have connected.
 
 ## Step 5: Use it every day
 
-Your daily rhythm is two commands:
+When you open Claude Code, run:
 
-| When | Command | What it does |
-|------|---------|-------------|
-| Start of day | `/morning` | Schedule, weather, what needs your attention |
-| End of day | `/digest` | Captures what happened, what shipped, open loops |
+```
+/start
+```
 
-And anytime:
+This sets up background loops that automatically run your morning briefing, end-of-day digest, and data sync while your session is open.
+
+You can also run any skill manually:
 
 | Command | What it does |
 |---------|-------------|
+| `/start` | Start all automation loops (run once per session) |
+| `/morning` | Schedule, weather, what needs your attention |
+| `/digest` | Captures what happened, what shipped, open loops |
 | `/journal` | Write a quick journal entry |
 | `/goals` | Set or review structured goals |
+| `/sync` | Pull from all connected sources and update your files |
 
 ## How it works
 

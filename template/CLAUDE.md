@@ -53,3 +53,4 @@ meetings/         — meeting notes
 - **Journal** (`/journal`) — freeform, daily, no rules
 - **End-of-day digest** (`/digest`) — structured recap of the day
 - **Goals** (`/goals`) — set and review structured goals tied to your life pillars
+- **Sync** (`/sync`) — pull from all connected sources and update people files
