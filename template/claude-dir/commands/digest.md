@@ -21,6 +21,7 @@ Generate an end-of-day digest and save it to `digests/`.
    - **Gmail (received)**: Search `is:anywhere after:YYYY/M/D before:YYYY/M/D+1 -label:spam -label:promotions`. Use `is:anywhere` not `in:inbox` — many people archive emails quickly. Read full threads for context.
    - **Gmail (sent)**: Search `in:sent after:YYYY/M/D before:YYYY/M/D+1`. This is critical for knowing what's already been responded to. Read content, not just subject lines.
    - **Beeper**: Search chats for today's messages. Paginate through all results with `direction='before'` — don't stop at the first page. Read message content for context.
+   - **Reminders**: Read `reminders/reminders.md`. Note which items are checked (`- [x]`) and which are unchecked (`- [ ]`). If the file doesn't exist or is empty, skip.
    - **Git**: Check commits for the day: `git log --since="YYYY-MM-DDT00:00" --until="YYYY-MM-DDT23:59" --oneline`. Summarize what was shipped or worked on.
 
    If a source isn't connected or returns an error, skip it and note it was unavailable. Don't fail the digest because one source is missing.
@@ -53,6 +54,10 @@ Generate an end-of-day digest and save it to `digests/`.
 
 ## Shipped
 - [What got committed, deployed, completed, or meaningfully advanced today]
+
+## Reminders
+- [List reminders from reminders/reminders.md with their checkbox status]
+- [Omit this section if no reminders exist]
 
 ## Open Loops
 - Things that need follow-up tomorrow

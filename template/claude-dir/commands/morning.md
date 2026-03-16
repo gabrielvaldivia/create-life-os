@@ -12,6 +12,7 @@ Morning briefing. Review yesterday, see today's schedule, surface what needs att
    - **Gmail**: Search for emails received in the last 24 hours (`is:anywhere after:YYYY/M/D -label:spam -label:promotions`). Also check sent mail (`in:sent after:YYYY/M/D`) to know what's already been replied to.
    - **Beeper**: Search recent chats for messages from the last 24 hours. Paginate through results with `direction='before'` — don't stop at the first page. Summarize notable conversations.
    - **Yesterday's digest**: Read `digests/YYYY-MM-DD.md` for yesterday. Note open loops.
+   - **Reminders**: Read `reminders/reminders.md`. Note any unchecked items (`- [ ]`). If all items are checked off or the file is empty, skip.
    - **Weather**: Fetch the forecast using the Open-Meteo API. First detect the system timezone by running `readlink /etc/localtime | sed 's|.*/zoneinfo/||'` (falls back to "America/New_York" if detection fails). Then get today's forecast using the location from CLAUDE.md (default to New York if not set): `curl -s "https://api.open-meteo.com/v1/forecast?latitude=LAT&longitude=LON&daily=temperature_2m_max,temperature_2m_min,weathercode&hourly=temperature_2m,weathercode&temperature_unit=fahrenheit&timezone={DETECTED_TZ}&forecast_days=1"`. Weather codes: 0=clear, 1-3=partly cloudy/overcast, 45-48=fog, 51-55=drizzle, 61-65=rain, 71-75=snow, 80-82=showers, 95=thunderstorm.
 
    If a source isn't connected or returns an error, skip it gracefully. Don't fail the whole briefing because one source is missing.
@@ -33,6 +34,10 @@ Morning briefing. Review yesterday, see today's schedule, surface what needs att
 - [Time]: [Event] — [brief context if notable]
 - Skip recurring meetings unless something unusual is happening
 - Highlight what stands out: new people, first meetings, deadlines
+
+**Reminders**
+- [Unchecked reminders from reminders/reminders.md]
+- Omit this section entirely if there are no unchecked reminders
 
 **On your plate**
 1. [Open loops from yesterday's digest where you have a direct action]

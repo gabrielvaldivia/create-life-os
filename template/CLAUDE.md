@@ -42,6 +42,7 @@ digests/          — end-of-day structured recaps
 people/           — notes on people in your life
 identity/         — living profile, updated over time
 goals/            — goal tracking and progress
+reminders/        — simple checklist of things to remember
 work/             — work-related notes and tasks
 health/           — health metrics and logs
 meetings/         — meeting notes

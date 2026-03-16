@@ -51,6 +51,7 @@ life-os/
 ├── digests/          — end-of-day structured recaps
 ├── people/           — notes on people in your life
 ├── goals/            — goal tracking and progress
+├── reminders/        — simple checklist of things to remember
 ├── identity/         — living profile, updated over time
 ├── work/             — work-related notes
 ├── health/           — health metrics
