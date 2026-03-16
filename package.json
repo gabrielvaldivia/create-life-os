@@ -1,6 +1,6 @@
 {
   "name": "create-life-os",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Create a second brain powered by Claude Code",
   "bin": {
     "create-life-os": "./bin/create-life-os.js"
