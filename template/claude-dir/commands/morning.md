@@ -4,25 +4,35 @@ Morning briefing. Review yesterday, see today's schedule, surface what needs att
 
 1. **Get today's date** and determine if it's a weekday or weekend.
 
-2. **Check for yesterday's digest.** If `digests/YYYY-MM-DD.md` exists for yesterday, read it. Note any open loops that might carry forward.
+2. **Check for yesterday's digest.** If `digests/YYYY-MM-DD.md` exists for yesterday, read it. Note any open loops.
 
-3. **Pull available data.** Check each source and use whatever is available. Run these in parallel where possible:
+   **CRITICAL CHECK**: If yesterday's digest does NOT exist, say this FIRST: "**Yesterday's digest is missing. Running /digest for yesterday now.**" Then run the digest for yesterday before proceeding.
 
-   - **Google Calendar**: Fetch today's events. If the user has multiple calendars configured in CLAUDE.md, check all of them. Merge and deduplicate by time.
-   - **Gmail**: Search for emails received in the last 24 hours (`is:anywhere after:YYYY/M/D -label:spam -label:promotions`). Also check sent mail (`in:sent after:YYYY/M/D`) to know what's already been replied to.
-   - **Beeper**: Search recent chats for messages from the last 24 hours. Paginate through results with `direction='before'` — don't stop at the first page. Summarize notable conversations.
-   - **Yesterday's digest**: Read `digests/YYYY-MM-DD.md` for yesterday. Note open loops.
-   - **Reminders**: Read `reminders/reminders.md`. Note any unchecked items (`- [ ]`). If all items are checked off or the file is empty, skip.
-   - **Weather**: Fetch the forecast using the Open-Meteo API. First detect the system timezone by running `readlink /etc/localtime | sed 's|.*/zoneinfo/||'` (falls back to "America/New_York" if detection fails). Then get today's forecast using the location from CLAUDE.md (default to New York if not set): `curl -s "https://api.open-meteo.com/v1/forecast?latitude=LAT&longitude=LON&daily=temperature_2m_max,temperature_2m_min,weathercode&hourly=temperature_2m,weathercode&temperature_unit=fahrenheit&timezone={DETECTED_TZ}&forecast_days=1"`. Weather codes: 0=clear, 1-3=partly cloudy/overcast, 45-48=fog, 51-55=drizzle, 61-65=rain, 71-75=snow, 80-82=showers, 95=thunderstorm.
+3. **Pull available data.** Check each source and use whatever is available. If pre-fetched data is provided in the prompt (headless run), use that instead of calling MCP tools.
 
-   If a source isn't connected or returns an error, skip it gracefully. Don't fail the whole briefing because one source is missing.
+   - **Weather**: Detect timezone via `readlink /etc/localtime | sed 's|.*/zoneinfo/||'` (fallback: "America/New_York"). Fetch: `curl -s "https://api.open-meteo.com/v1/forecast?latitude=LAT&longitude=LON&daily=temperature_2m_max,temperature_2m_min,weathercode&hourly=temperature_2m,weathercode&temperature_unit=fahrenheit&timezone={TZ}&forecast_days=1"`. Weather codes: 0=clear, 1-3=partly cloudy/overcast, 45-48=fog, 51-55=drizzle, 61-65=rain, 71-75=snow, 80-82=showers, 95=thunderstorm.
+   - **Google Calendar**: Fetch today's events from all configured calendars. Merge and deduplicate.
+   - **Gmail (received)**: Search `is:anywhere after:YYYY/M/D -label:spam -label:promotions`. Read full threads.
+   - **Gmail (sent)**: Search `in:sent after:YYYY/M/D`. Critical for knowing what's already been replied to.
+   - **Beeper**: Search recent chats for messages from the last 24 hours. Paginate fully.
+   - **Reminders**: Read `reminders/reminders.md`. Only note unchecked items.
+   - **Yesterday's digest**: Read open loops section.
+   - **Git**: Run `git log --since="yesterday" --oneline`.
 
-4. **Cross-reference before writing.** This is critical:
-   - For any inbound email, check if a reply was already sent. Don't mark something as "needs a reply" if it's already been handled.
-   - For any Beeper message, check if a reply was sent in the same chat.
+   If a source isn't connected or returns an error, skip it gracefully.
+
+4. **Cross-reference before writing.**
+   - For any inbound email, check if a reply was already sent. Don't mark as "needs a reply" if handled.
+   - **If an email is archived (no INBOX label), treat it as resolved.**
+   - For any message, check if a reply was sent in the same chat.
    - Never assume something is an open loop just because an inbound message exists.
 
-5. **Write the briefing** using this format:
+5. **Verify open loops before including them.** For EVERY item from yesterday's digest:
+   - Check sent email, sent messages for a response
+   - **If you already did your part, it's not your open loop**
+   - Each loop gets "CARRY FORWARD" or "RESOLVED (evidence)". No silent drops.
+
+6. **Write the briefing.** Use **bold text** for section labels, not # headings. No em dashes or en dashes.
 
 ### Weekday format:
 
@@ -31,21 +41,19 @@ Morning briefing. Review yesterday, see today's schedule, surface what needs att
 [Conversational weather summary. High/low, conditions, what to wear.]
 
 **Schedule**
-- [Time]: [Event] — [brief context if notable]
+- [Time]: [Event], [brief context if notable]
 - Skip recurring meetings unless something unusual is happening
 - Highlight what stands out: new people, first meetings, deadlines
 
 **Reminders**
-- [Unchecked reminders from reminders/reminders.md]
-- Omit this section entirely if there are no unchecked reminders
+- [Unchecked reminders only]
+- Omit this section if there are no unchecked reminders
 
 **On your plate**
-1. [Open loops from yesterday's digest where you have a direct action]
-2. [Anything from email or messages that needs a response]
+1. [Open loops where you have a direct action]
+2. [Anything from email or messages that needs YOUR response]
 - Use a numbered list so items feel prioritized
-
-**Heads up**
-- [Anything notable from messages or email worth knowing about, even if no action needed]
+- If you already did your part, it's not on your plate
 ```
 
 ### Weekend format:
@@ -54,26 +62,25 @@ Morning briefing. Review yesterday, see today's schedule, surface what needs att
 **[Day of week], [Month Day]**
 [Conversational weather summary. High/low, conditions.]
 
-**Schedule**
-- [Only personal and family events]
-
 **This weekend**
-- [Personal plans, social events, family activities]
+- [Only personal and family events]
 - [Skip all work items]
 ```
 
-6. **Omit empty sections.** If there's nothing for Schedule, On your plate, or Heads up — leave the section out entirely. Don't write "Nothing on your plate today."
+7. **Omit empty sections.** If there's nothing for a section, leave it out entirely.
 
-7. **Show the briefing** directly. Don't save to a file.
+8. **Show the briefing** directly. Don't save to a file.
 
-8. **Ask**: "Anything you want to adjust for today?"
+9. **Ask**: "Anything you want to adjust for today?"
 
 ## Important
 
-- **Never fabricate anything.** Every claim must be traceable to a specific source (email, calendar, message, yesterday's digest). If you can't find it, don't include it.
-- **Always cross-reference.** Check sent emails and sent messages before saying something needs a reply.
-- **If a data source isn't connected**, skip it gracefully. A briefing with just weather and yesterday's digest is still useful.
+- **Never fabricate anything.** Every claim must be traceable to a specific source.
+- **Always cross-reference.** Check sent emails and messages before saying something needs a reply.
+- **Archived email = resolved.** No INBOX label means it's been handled.
+- **If you already did your part, it's not your open loop.**
+- **If a data source isn't connected**, skip it gracefully.
+- **No em dashes or en dashes.** Use commas, periods, or colons.
 - **Weekends are personal.** No work items, no professional open loops.
 - **Deduplicate.** Don't repeat items across sections.
 - Keep it tight and scannable.
-- Be a coach: call out things they might be avoiding or forgetting — but only if they're real, verified items.

@@ -151,13 +151,14 @@ First-time setup. Walk through configuring your Life OS step by step.
     - `/journal` — jot something down anytime.
     - `/sync` — pull from all your connected sources and update your people files.
 
-    **Automation:**
-    - `/start` — run this once when you open Claude Code. It sets up background loops for morning briefings, digests, and syncing so they happen automatically while your session is open.
+    **Automation (choose one):**
+    - `/start` — run this when you open Claude Code. Sets up loops that run while your session is open.
+    - `/automate` — run this once to set up macOS LaunchAgents that run automatically at 7 AM and 8 PM, even when Claude Code isn't open. Requires Google API setup.
 
     **When you're ready:**
     - `/goals` — set structured goals tied to your life pillars.
 
-    Start with `/morning` tomorrow — or run `/start` to kick off automation right away. The system grows with you — don't try to set up everything at once."
+    Start with `/morning` tomorrow. When you want things to run automatically, run `/automate` to set up headless automation. The system grows with you — don't try to set up everything at once."
 
 14. **Commit.** Stage all new and modified files. Commit with the message: "Initial Life OS setup". Do not push unless they ask.
 
