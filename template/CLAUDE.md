@@ -52,6 +52,7 @@ health/           — health metrics and logs
 - **Morning briefing** (`/morning`) — review yesterday, see today's schedule, surface what needs attention
 - **Journal** (`/journal`) — freeform, daily, no rules
 - **End-of-day digest** (`/digest`) — structured recap of the day
+- **Weekly check-in** (`/weekly`) — Sunday evening look-ahead, goal progress, open loops
 - **Goals** (`/goals`) — set and review structured goals tied to your life pillars
 - **Sync** (`/sync`) — pull from all connected sources and update people files
 - **Reflect** (`/reflect`) — trace a mistake to its root cause and patch the relevant skill
