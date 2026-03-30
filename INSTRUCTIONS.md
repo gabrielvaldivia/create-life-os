@@ -90,6 +90,8 @@ You can also run any skill manually:
 | `/digest` | Captures what happened, what shipped, open loops |
 | `/journal` | Write a quick journal entry |
 | `/goals` | Set or review structured goals |
+| `/weekly` | Preview the week ahead, check goal progress |
+| `/reflect` | Trace a mistake to its root cause and patch the relevant skill |
 | `/sync` | Pull from all connected sources and update your files |
 
 ## How it works
@@ -105,8 +107,7 @@ life-os/
 ├── goals/                 ← Goal tracking with quarterly milestones
 ├── identity/              ← Living profile, updated over time
 ├── work/                  ← Work-related notes
-├── health/                ← Health metrics
-└── meetings/              ← Meeting notes
+└── health/                ← Health metrics
 ```
 
 **CLAUDE.md** is the brain. It tells Claude who you are, what matters to you, and how your files are organized. You can edit it anytime — just open the file and change whatever you want.

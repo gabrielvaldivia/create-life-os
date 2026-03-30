@@ -14,8 +14,12 @@ Run `/setup` in Claude Code to configure your Life OS.
 | `/journal` | Append a timestamped entry to today's journal. |
 | `/morning` | Morning briefing. Schedule, weather, what needs your attention. |
 | `/digest` | End-of-day recap. What happened, what shipped, what's still open. |
+| `/weekly` | Sunday evening check-in. Preview the week ahead, check goal progress. |
 | `/goals` | Set structured goals tied to your life pillars. |
+| `/reflect` | Trace a mistake to its root cause and patch the relevant skill. |
 | `/sync` | Pull from all connected sources and update your files. |
+| `/start` | Start automation loops for morning, digest, and sync. Run once per session. |
+| `/automate` | Set up macOS LaunchAgents for headless automation at 7 AM and 8 PM. |
 
 ## How it works
 

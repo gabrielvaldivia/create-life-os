@@ -74,7 +74,7 @@ First-time setup. Walk through configuring your Life OS step by step.
    - `goals/`
    - `work/`
    - `health/`
-   - `meetings/`
+   - `reminders/`
 
 9. **Create people files.** For each person they mentioned in step 3, create a simple file in `people/`:
 

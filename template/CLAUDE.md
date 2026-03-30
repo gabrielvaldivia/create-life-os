@@ -30,7 +30,7 @@ This is your second brain. Markdown, git-tracked, interacted with through Claude
 
 - Never delete journal entries
 - Never fabricate information about my life
-- Don't over-organize — simple is better than neat
+- Don't over-organize: simple is better than neat
 - Keep this CLAUDE.md updated as I share new information
 - When in doubt, ask
 
@@ -45,7 +45,6 @@ goals/            — goal tracking and progress
 reminders/        — simple checklist of things to remember
 work/             — work-related notes and tasks
 health/           — health metrics and logs
-meetings/         — meeting notes
 ```
 
 ## Workflows
@@ -55,3 +54,4 @@ meetings/         — meeting notes
 - **End-of-day digest** (`/digest`) — structured recap of the day
 - **Goals** (`/goals`) — set and review structured goals tied to your life pillars
 - **Sync** (`/sync`) — pull from all connected sources and update people files
+- **Reflect** (`/reflect`) — trace a mistake to its root cause and patch the relevant skill
