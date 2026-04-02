@@ -69,9 +69,11 @@ Morning briefing. Review yesterday, see today's schedule, surface what needs att
 
 7. **Omit empty sections.** If there's nothing for a section, leave it out entirely.
 
-8. **Show the briefing** directly. Don't save to a file.
+8. **Send a Beeper notification.** If Beeper is connected, search for the "Note to self" chat using `search_chats`, then send the full briefing using `send_message`. Skip this step if Beeper isn't available.
 
-9. **Ask**: "Anything you want to adjust for today?"
+9. **Show the briefing** directly. Don't save to a file.
+
+10. **Ask**: "Anything you want to adjust for today?"
 
 ## Important
 

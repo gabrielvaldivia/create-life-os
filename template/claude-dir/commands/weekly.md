@@ -50,7 +50,9 @@ Sunday evening week-ahead check-in. Highlights what's coming this week so you ca
 - Only items where you have a direct action or someone is waiting on you
 ```
 
-6. **Show the check-in** directly, don't save to a file.
+6. **Send a Beeper notification.** If Beeper is connected, search for the "Note to self" chat using `search_chats`, then send the full check-in using `send_message`. Skip this step if Beeper isn't available.
+
+7. **Show the check-in** directly, don't save to a file.
 
 ## Important
 
