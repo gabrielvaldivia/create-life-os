@@ -131,11 +131,12 @@ First-time setup. Walk through configuring your Life OS step by step.
     Wait for their response. If they connected it, test by fetching today's calendar events. Confirm: "Connected! I can see your calendar."
 
     **If they selected any Beeper sources (iMessage, WhatsApp, or Slack):**
-    Say: "To pull in your messages, we'll use Beeper — it's an app that bridges all your messaging into one place. Here's what to do:
+    Say: "To pull in your messages, we'll use Beeper — it's a desktop app that bridges all your messaging into one place and exposes them to Claude Code via an MCP server. Here's what to do:
 
-    1. Download Beeper at beeper.com and create an account
+    1. Download **Beeper Desktop** at beeper.com and create an account
     2. In the Beeper app, connect [list only the ones they selected — iMessage, WhatsApp, Slack, etc.]
-    3. Once your accounts are syncing in Beeper, come back and let me know
+    3. Keep Beeper Desktop running — Claude Code connects to it directly to read your messages
+    4. Once your accounts are syncing in Beeper, come back and let me know
 
     This takes a few minutes. I'll wait."
 
@@ -148,6 +149,8 @@ First-time setup. Walk through configuring your Life OS step by step.
     ```
 
     Test by listing recent chats. Confirm: "Connected! I can see your messages."
+
+    If the test fails, remind them: "Make sure Beeper Desktop is running — Claude Code connects to it directly. The MCP server only works when the app is open."
 
     **If they selected nothing:**
     Say: "No problem. Your journal and goals work without any connections. Morning briefings and digests will use whatever data is available — even just weather and your git activity is useful. You can connect sources anytime."
