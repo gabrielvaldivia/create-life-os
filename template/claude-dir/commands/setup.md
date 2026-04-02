@@ -52,11 +52,34 @@ First-time setup. Walk through configuring your Life OS step by step.
 
    Wait for their response.
 
-7. **Generate CLAUDE.md.** Using everything they shared, update the `CLAUDE.md` file in the root of the repo. Fill in:
-   - About You section with their name, location, and what they do
-   - Family & Key People section with whoever they mentioned
-   - Life Pillars section with their pillars (numbered list)
-   - Current Goals section (if they shared any)
+7. **Create identity/profile.md.** This is the single source of truth for who the user is. Write it using everything they shared:
+
+   ```markdown
+   # [Name] — Identity Profile
+
+   *Last updated: [today's date]*
+
+   ## Who They Are
+   [Name, location, what they do. Use their words.]
+
+   ## Family & Key People
+   [Everyone they mentioned, with relationships. Link to people files: [[people/firstname-lastname|Name]]]
+
+   ## Life Pillars
+   [Numbered list of their pillars with brief descriptions]
+
+   ## Goals
+   [What they're working toward, if they shared any. Otherwise omit this section.]
+   ```
+
+   Keep it simple. This file grows over time as the system learns more about them.
+
+8. **Update CLAUDE.md.** Update `CLAUDE.md` to reference the profile instead of containing the info directly. Fill in:
+   - The "About You" section should say: `See identity/profile.md for who you are and what matters to you.`
+   - Add a short one-liner with their name and what they do (for quick context)
+   - Family & Key People section with names only (details live in profile.md and people/ files)
+   - Life Pillars section with their pillars (numbered list, brief)
+   - Current Goals section (brief, if they shared any)
    - How to Talk to Me section based on their communication style choice. Write it as bullet points in their voice, e.g.:
      - Coach → "Be direct. Push back. Call me out when I'm avoiding things."
      - Calm assistant → "Be supportive and patient. Guide, don't push."

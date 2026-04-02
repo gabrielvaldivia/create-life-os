@@ -4,7 +4,7 @@ This is your second brain. Markdown, git-tracked, interacted with through Claude
 
 ## About You
 
-<!-- The /setup skill will fill this in. -->
+<!-- The /setup skill will fill this in. See identity/profile.md for the full profile. -->
 - **Name:**
 - **Location:**
 - **What you do:**
@@ -40,7 +40,7 @@ This is your second brain. Markdown, git-tracked, interacted with through Claude
 journal/entries/  — daily freeform journal entries
 digests/          — end-of-day structured recaps
 people/           — notes on people in your life
-identity/         — living profile, updated over time
+identity/         — living profile (profile.md is the single source of truth)
 goals/            — goal tracking and progress
 reminders/        — simple checklist of things to remember
 work/             — work-related notes and tasks
