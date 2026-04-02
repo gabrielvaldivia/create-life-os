@@ -52,14 +52,18 @@ First-time setup. Walk through configuring your Life OS step by step.
 
    Wait for their response.
 
-7. **Create identity/profile.md.** This is the single source of truth for who the user is. Write it using everything they shared:
+7. **Build the system.** Say: "Got it. Setting everything up for you now..."
+
+   Then do all of the following silently (no need to narrate each step):
+
+   a. **Create `identity/profile.md`** — the single source of truth for who the user is:
 
    ```markdown
    # [Name] — Identity Profile
 
    *Last updated: [today's date]*
 
-   ## Who They Are
+   ## Who You Are
    [Name, location, what they do. Use their words.]
 
    ## Family & Key People
@@ -72,11 +76,8 @@ First-time setup. Walk through configuring your Life OS step by step.
    [What they're working toward, if they shared any. Otherwise omit this section.]
    ```
 
-   Keep it simple. This file grows over time as the system learns more about them.
-
-8. **Update CLAUDE.md.** Update `CLAUDE.md` to reference the profile instead of containing the info directly. Fill in:
-   - The "About You" section should say: `See identity/profile.md for who you are and what matters to you.`
-   - Add a short one-liner with their name and what they do (for quick context)
+   b. **Update `CLAUDE.md`** to reference the profile instead of containing the info directly. Fill in:
+   - The "About You" section: `See identity/profile.md for the full profile.` plus a short one-liner with their name and what they do
    - Family & Key People section with names only (details live in profile.md and people/ files)
    - Life Pillars section with their pillars (numbered list, brief)
    - Current Goals section (brief, if they shared any)
@@ -86,21 +87,12 @@ First-time setup. Walk through configuring your Life OS step by step.
      - Direct and brief → "Keep it short. No fluff. Just what I need to know."
      - Casual and warm → "Talk to me like a friend. Be real but not cold."
      - Custom → use their words directly
+   - Preserve the Rules, File Structure, and Workflows sections as-is.
 
-   Preserve the Rules, File Structure, and Workflows sections as-is.
+   c. **Create folder structure.** Verify these directories exist (create any that are missing):
+   - `journal/entries/`, `digests/`, `people/`, `identity/`, `goals/`, `work/`, `health/`, `reminders/`
 
-8. **Create folder structure.** Verify these directories exist (create any that are missing):
-   - `journal/entries/`
-   - `digests/`
-   - `people/`
-   - `identity/`
-   - `goals/`
-   - `work/`
-   - `health/`
-   - `reminders/`
-
-9. **Create people files.** For each person they mentioned in step 3, create a simple file in `people/`:
-
+   d. **Create people files.** For each person they mentioned in step 3, create a file in `people/`:
    Filename: `firstname-lastname.md` (lowercase, hyphens)
 
    ```markdown
@@ -111,52 +103,59 @@ First-time setup. Walk through configuring your Life OS step by step.
 
    Use their words, not formal language. If they said "my wife Sarah" write "Wife", not "Spouse".
 
-10. **Connect data sources.** Use the AskUserQuestion tool with multiSelect: true:
+   When everything is created, say: "Done. Your system is ready."
 
-    Question: "Which data sources do you want to connect? You can add more later."
-    Header: "Data sources"
-    Options:
-    - "Gmail & Google Calendar" — "Pull in your email and schedule for morning briefings and digests"
-    - "iMessage" — "Read your text messages via Beeper"
-    - "WhatsApp" — "Read your WhatsApp conversations via Beeper"
-    - "Slack" — "Read your Slack messages via Beeper"
+8. **Connect data sources.** Use the AskUserQuestion tool with multiSelect: true:
 
-    The user can also skip via "Other" (e.g., "None for now").
+   Question: "Which data sources do you want to connect? You can add more later."
+   Header: "Data sources"
+   Options:
+   - "Gmail & Google Calendar" — "Pull in your email and schedule for morning briefings and digests"
+   - "iMessage" — "Read your text messages via Beeper"
+   - "WhatsApp" — "Read your WhatsApp conversations via Beeper"
+   - "Slack" — "Read your Slack messages via Beeper"
 
-11. **Set up selected data sources.**
+   The user can also skip via "Other" (e.g., "None for now").
 
-    **If they selected Gmail & Google Calendar:**
-    Say: "Let's connect Google. Go to Claude Code Settings (the gear icon or Cmd+,) → Connections → click 'Connect' next to Google. Sign in and grant access. Let me know once that's done."
+9. **Set up selected data sources.**
 
-    Wait for their response. If they connected it, test by fetching today's calendar events. Confirm: "Connected! I can see your calendar."
+   **If they selected Gmail & Google Calendar:**
 
-    **If they selected any Beeper sources (iMessage, WhatsApp, or Slack):**
-    Say: "To pull in your messages, we'll use Beeper — it's a desktop app that bridges all your messaging into one place and exposes them to Claude Code via an MCP server. Here's what to do:
+   Check if they're using the Claude Code desktop app or CLI by looking for environment clues. Then say the appropriate instructions:
 
-    1. Download **Beeper Desktop** at beeper.com and create an account
-    2. In the Beeper app, connect [list only the ones they selected — iMessage, WhatsApp, Slack, etc.]
-    3. Go to **Beeper Settings → Developers** and turn on the **Desktop API beta**. This is what enables the MCP server that Claude Code connects to.
-    4. Keep Beeper Desktop running — Claude Code connects to it directly to read your messages
-    5. Once your accounts are syncing in Beeper, come back and let me know
+   For the desktop app: "Let's connect Google. Open **Settings** (gear icon in the top right, or Cmd+,) → **Connections** → click **Connect** next to Google. Sign in and grant access. Let me know once that's done."
 
-    This takes a few minutes. I'll wait."
+   For the CLI: "Let's connect Google. Run `/connections` to manage your connections, or go to **claude.ai/settings/connections** to connect Google from the web. Let me know once that's done."
 
-    When they confirm, create or update `.claude/settings.local.json` to enable the Beeper MCP:
+   Wait for their response. If they connected it, test by fetching today's calendar events. Confirm: "Connected! I can see your calendar."
 
-    ```json
-    {
-      "enabledMcpjsonServers": ["beeper"]
-    }
-    ```
+   **If they selected any Beeper sources (iMessage, WhatsApp, or Slack):**
+   Say: "To pull in your messages, we'll use Beeper — it's a desktop app that bridges all your messaging into one place and exposes them to Claude Code via an MCP server. Here's what to do:
 
-    Test by listing recent chats. Confirm: "Connected! I can see your messages."
+   1. Download **Beeper Desktop** at beeper.com and create an account
+   2. In the Beeper app, connect [list only the ones they selected — iMessage, WhatsApp, Slack, etc.]
+   3. Go to **Beeper Settings → Developers** and turn on the **Desktop API beta**. This is what enables the MCP server that Claude Code connects to.
+   4. Keep Beeper Desktop running — Claude Code connects to it directly to read your messages
+   5. Once your accounts are syncing in Beeper, come back and let me know
 
-    If the test fails, remind them: "Make sure Beeper Desktop is running — Claude Code connects to it directly. The MCP server only works when the app is open."
+   This takes a few minutes. I'll wait."
 
-    **If they selected nothing:**
-    Say: "No problem. Your journal and goals work without any connections. Morning briefings and digests will use whatever data is available — even just weather and your git activity is useful. You can connect sources anytime."
+   When they confirm, create or update `.claude/settings.local.json` to enable the Beeper MCP:
 
-12. **First journal entry.** Say:
+   ```json
+   {
+     "enabledMcpjsonServers": ["beeper"]
+   }
+   ```
+
+   Test by listing recent chats. Confirm: "Connected! I can see your messages."
+
+   If the test fails, remind them: "Make sure Beeper Desktop is running — Claude Code connects to it directly. The MCP server only works when the app is open."
+
+   **If they selected nothing:**
+   Say: "No problem. Your journal and goals work without any connections. Morning briefings and digests will use whatever data is available — even just weather and your git activity is useful. You can connect sources anytime."
+
+10. **First journal entry.** Say:
 
     "Your Life OS is set up. Let's break it in.
 
@@ -164,12 +163,23 @@ First-time setup. Walk through configuring your Life OS step by step.
 
     Wait for their response. Save it as a journal entry: `journal/entries/YYYY-MM-DD.md` with a timestamp in 12-hour format.
 
-13. **Wrap up.** Say:
+11. **Set up git remote.** Check if a git remote is already configured (`git remote -v`). If not, ask:
+
+    "Do you have a GitHub repo for this? If so, give me the URL and I'll connect it. If not, I can create one for you."
+
+    - If they provide a URL: `git remote add origin <url>`
+    - If they want one created: use `gh repo create` to create a private repo and add it as the remote
+    - If they want to skip: that's fine, mention they can set it up later with `git remote add origin <url>`
+
+    This is needed for automation (the Mac app commits and pushes) and for accessing digests from other devices.
+
+12. **Wrap up.** Say:
 
     "You're all set. Here's what you've got:
 
     **Your system:**
     - `CLAUDE.md` — your system prompt. I'll refer to this every time we talk. Update it anytime.
+    - `identity/profile.md` — who you are. This grows over time as the system learns more about you.
     - Your first journal entry in `journal/entries/`
 
     **Your daily rhythm:**
@@ -186,7 +196,7 @@ First-time setup. Walk through configuring your Life OS step by step.
 
     Start with `/morning` tomorrow. When you want things to run automatically, grab the Mac app and run `/automate`. The system grows with you — don't try to set up everything at once."
 
-14. **Commit.** Stage all new and modified files. Commit with the message: "Initial Life OS setup". Do not push unless they ask.
+13. **Commit and push.** Stage all new and modified files. Commit with the message: "Initial Life OS setup". If a remote is configured, push to it.
 
 ## Important
 
@@ -197,4 +207,4 @@ First-time setup. Walk through configuring your Life OS step by step.
 - Keep the tone warm and direct. This should feel like a conversation, not onboarding.
 - If they want to skip a step, let them. Nothing is required except the name.
 - Don't explain markdown syntax or git concepts unless they ask.
-- Use the AskUserQuestion tool for steps 4, 5, and 10. Use regular conversation for everything else.
+- Use the AskUserQuestion tool for steps 4, 5, and 8. Use regular conversation for everything else.
