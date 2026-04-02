@@ -18,7 +18,7 @@ The setup skill walks you through everything: who you are, what matters to you, 
 | Skill | What it does |
 |-------|-------------|
 | `/setup` | First-time setup. Configures your Life OS from scratch. |
-| `/automate` | Set up macOS LaunchAgents for headless automation at 7 AM and 8 PM. |
+| `/automate` | Set up the Life OS Mac app and Google API access for scheduled automation. |
 | `/journal` | Append a timestamped entry to today's journal. |
 | `/morning` | Morning briefing. Schedule, weather, what needs your attention. |
 | `/digest` | End-of-day recap. What happened, what shipped, what's still open. |

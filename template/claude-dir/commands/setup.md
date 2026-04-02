@@ -152,12 +152,12 @@ First-time setup. Walk through configuring your Life OS step by step.
     - `/sync` — pull from all your connected sources and update your people files.
 
     **Automation:**
-    - `/automate` — run this once to set up macOS LaunchAgents that run automatically at 7 AM and 8 PM, even when Claude Code isn't open. Requires Google API setup.
+    - Download the [Life OS Mac app](https://github.com/gabrielvaldivia/create-life-os/releases/latest/download/LifeOS-mac.zip) to run your skills on a schedule from the menu bar. Then run `/automate` to set up Google API access for headless runs.
 
     **When you're ready:**
     - `/goals` — set structured goals tied to your life pillars.
 
-    Start with `/morning` tomorrow. When you want things to run automatically, run `/automate` to set up headless automation. The system grows with you — don't try to set up everything at once."
+    Start with `/morning` tomorrow. When you want things to run automatically, grab the Mac app and run `/automate`. The system grows with you — don't try to set up everything at once."
 
 14. **Commit.** Stage all new and modified files. Commit with the message: "Initial Life OS setup". Do not push unless they ask.
 

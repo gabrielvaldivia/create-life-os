@@ -103,6 +103,18 @@ life-os/
 
 **CLAUDE.md** is the brain. It tells Claude who you are, what matters to you, and how your files are organized. You can edit it anytime — just open the file and change whatever you want.
 
+## Step 6: Automate it (optional)
+
+Download the [Life OS Mac app](https://github.com/gabrielvaldivia/create-life-os/releases/latest/download/LifeOS-mac.zip) to run your skills on a schedule without keeping Claude Code open.
+
+1. Unzip and move to your Applications folder
+2. Open the app — it lives in your menu bar
+3. Go to Settings and set your Life OS repo path
+4. Your skills are discovered automatically from `.claude/commands/`
+5. Schedule any skill to run daily or weekly
+
+Then run `/automate` in Claude Code to set up Google API access so your scheduled skills can pull calendar and email data headlessly.
+
 ## Tips
 
 - **Start small.** Just use `/journal` and `/morning` for the first week. Add more when you feel the need.

@@ -1,24 +1,36 @@
-Set up headless automation so your morning briefings and nightly digests run automatically, even when Claude Code isn't open.
+Set up automation so your skills run on a schedule, even when Claude Code isn't open.
 
 ## What it does
 
-Creates macOS LaunchAgents that run at fixed times every day:
-- **Morning briefing** at 7:00 AM
-- **Nightly digest + sync** at 8:00 PM
-
-Each automation pre-fetches all data (calendar, email, messages, reminders, git) in bash, then passes it to `claude -p` so it works without MCP tools.
-
-## Prerequisites
-
-- Google Calendar and Gmail API access (the script will help you set this up)
-- Claude CLI installed (`claude` command available)
-- macOS (LaunchAgents are macOS-specific)
+Automation uses the Life OS Mac app, a native menu bar companion that:
+- Discovers all your skills automatically from `.claude/commands/`
+- Lets you schedule any skill to run daily or weekly at a specific time
+- Pre-fetches all data (calendar, email, messages, reminders, git, weather) before running each skill headlessly
+- Monitors your data source connections
 
 ## Steps
 
-1. **Check if Google API scripts exist.** Look for `scripts/google-auth-setup.sh`. If it doesn't exist, create the OAuth setup:
+1. **Check for the Life OS Mac app.** Ask the user:
 
-   a. Ask the user: "To automate calendar and email, I need to set up direct Google API access. Go to console.cloud.google.com, create an OAuth 2.0 Desktop client, and give me the client ID and client secret."
+   "Do you have the Life OS menu bar app installed? It's a native Mac app that runs your skills on a schedule."
+
+   If they don't have it, say:
+
+   "Download it here: https://github.com/gabrielvaldivia/create-life-os/releases/latest/download/LifeOS-mac.zip
+
+   Unzip it, move it to your Applications folder, and open it. It lives in your menu bar. Then come back here."
+
+   Wait for them to confirm.
+
+2. **Set the repo path.** Tell the user:
+
+   "Open the Life OS app from your menu bar, go to Settings, and make sure your repo path is set to this folder."
+
+   Confirm the path matches the current working directory.
+
+3. **Check if Google API scripts exist.** Look for `scripts/google-token.sh`. If it doesn't exist, set up Google API access for headless runs:
+
+   a. Ask the user: "To run skills automatically, I need direct Google API access for calendar and email. Go to console.cloud.google.com, create an OAuth 2.0 Desktop client, and give me the client ID and client secret."
 
    b. Once they provide credentials, store them in Keychain:
    ```bash
@@ -26,61 +38,44 @@ Each automation pre-fetches all data (calendar, email, messages, reminders, git)
    security add-generic-password -U -s "gabos-google-client-secret" -a "gabos" -w "CLIENT_SECRET"
    ```
 
-   c. Create `scripts/google-auth-setup.sh`, `scripts/google-token.sh`, `scripts/read-calendar-api.sh`, and `scripts/read-email-api.sh`. These scripts use curl + Google APIs directly, no TCC permissions needed.
+   c. Create `scripts/google-auth-setup.sh`, `scripts/google-token.sh`, `scripts/read-calendar-api.sh`, and `scripts/read-email-api.sh`. These scripts use curl + Google APIs directly.
 
    d. Run the auth setup to get the refresh token.
 
-2. **Create the morning briefing script** at `scripts/morning-briefing.sh`:
+4. **Verify the headless runner exists.** Check for `scripts/headless-skill-runner.sh`. If it doesn't exist, create it. This is the universal script that pre-fetches all data sources and passes them to `claude -p` when skills run headlessly. It should:
    - Pull latest from git
-   - Pre-fetch ALL data in bash: weather, calendar (API), email (API), reminders, tasks, yesterday's digest, git log, health
-   - Pass everything to `claude -p` with `/morning` instructions
-   - Include a once-per-day lock file to prevent duplicate runs
+   - Pre-fetch: calendar (Google API), email (Gmail API), iMessage (TCC prefetch), tasks, Figma comments, reminders, health, journal, git log, weather, goals
+   - Pass all data as context to `claude -p '/skillId'`
+   - Use `--permission-mode acceptEdits` so the skill can write files
 
-3. **Create the nightly digest script** at `scripts/nightly-digest.sh`:
-   - Pull latest from git
-   - Pre-fetch ALL data in bash: calendar (API), email (API), reminders, health, git log, journal entries, yesterday's digest, today's existing digest
-   - Pass everything to `claude -p` with `/digest` instructions
-   - Run `/sync` after the digest
-   - Commit and push changes
+5. **Recommend a schedule.** Tell the user:
 
-4. **Create LaunchAgent plist files** in `~/Library/LaunchAgents/`:
+   "Open the Life OS app and schedule the skills you want to automate. Here's a good starting point:
 
-   Morning (`com.life-os.morning-briefing.plist`):
-   - Runs at 7:00 AM daily
-   - 30-minute timeout (kills if hung, so next day's run isn't blocked)
-   - Logs to `~/.local/log/`
+   - `/morning` — daily at 7:00 AM
+   - `/digest` — daily at 8:00 PM
 
-   Nightly (`com.life-os.nightly-digest.plist`):
-   - Runs at 8:00 PM daily
-   - 30-minute timeout
-   - Logs to `~/.local/log/`
+   You can schedule any skill. The app shows all your skills from `.claude/commands/`. Just click the + button, pick a skill, set a time, and you're done."
 
-5. **Load the LaunchAgents:**
-   ```bash
-   launchctl load ~/Library/LaunchAgents/com.life-os.morning-briefing.plist
-   launchctl load ~/Library/LaunchAgents/com.life-os.nightly-digest.plist
-   ```
-
-6. **Test both scripts** by running them manually and confirming they produce output.
+6. **Test it.** Have the user trigger one skill manually from the app to confirm it works.
 
 7. **Confirm to the user:**
-   "Automation is set up:
-   - Morning briefing runs at 7:00 AM
-   - Nightly digest + sync runs at 8:00 PM
-   - Both have 30-minute timeouts so a hung run can't block future runs
-   - Logs are in ~/.local/log/
 
-   You can check logs anytime: `tail -50 ~/.local/log/gabos-morning.log`"
+   "Automation is set up. Your skills will run on schedule through the Life OS app. You can change times, add new skills, or pause automations anytime from the menu bar.
+
+   A few things to know:
+   - The app needs to be running for scheduled skills to fire
+   - Each skill gets all your data pre-fetched automatically (calendar, email, messages, etc.)
+   - Logs are in `~/.local/log/` if you ever need to debug a run"
 
 ## Key design principles
 
-- **Pre-fetch everything.** `claude -p` cannot reliably use MCP tools in headless mode. All data must be collected in bash first and passed in the prompt.
-- **Timeouts on everything.** Every LaunchAgent gets a 30-minute timeout. Every `claude -p` call inside scripts gets a 5-minute timeout. A hung process must never block future runs.
-- **Fail gracefully.** If one data source fails, the script continues with what it has. A digest with partial data is better than no digest.
-- **Don't rely on apps being open.** No AppleScript, no Calendar.app, no Mail.app. Direct API calls only.
+- **Pre-fetch everything.** `claude -p` cannot reliably use MCP tools in headless mode. The headless runner collects all data in bash first and passes it in the prompt.
+- **Fail gracefully.** If one data source fails, the skill continues with what it has. A digest with partial data is better than no digest.
+- **Any skill can be automated.** The headless runner is universal. Schedule `/digest`, `/morning`, `/weekly`, `/goals-review`, or any custom skill you create.
 
 ## Important
 
-- LaunchAgents only run when the user is logged in (not during sleep with lid closed)
-- Google OAuth tokens on Workspace accounts don't expire. Consumer accounts in "Testing" mode expire after 7 days, set to "Production" to avoid this
-- If the Google token expires, the scripts will print clear error messages suggesting the user re-run `scripts/google-auth-setup.sh`
+- The Life OS app must be running for scheduled skills to fire. Add it to your Login Items (System Settings > General > Login Items) so it starts on boot.
+- Google OAuth tokens on Workspace accounts don't expire. Consumer accounts in "Testing" mode expire after 7 days — set to "Production" to avoid this.
+- If the Google token expires, the pre-fetch scripts will print clear error messages. Re-run `scripts/google-auth-setup.sh` to fix.
