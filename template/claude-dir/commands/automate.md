@@ -34,21 +34,15 @@ Automation uses the Life OS Mac app, a native menu bar companion that:
 
    b. Once they provide credentials, store them in Keychain:
    ```bash
-   security add-generic-password -U -s "gabos-google-client-id" -a "gabos" -w "CLIENT_ID"
-   security add-generic-password -U -s "gabos-google-client-secret" -a "gabos" -w "CLIENT_SECRET"
+   security add-generic-password -U -s "lifeos-google-client-id" -a "lifeos" -w "CLIENT_ID"
+   security add-generic-password -U -s "lifeos-google-client-secret" -a "lifeos" -w "CLIENT_SECRET"
    ```
 
    c. Create `scripts/google-auth-setup.sh`, `scripts/google-token.sh`, `scripts/read-calendar-api.sh`, and `scripts/read-email-api.sh`. These scripts use curl + Google APIs directly.
 
    d. Run the auth setup to get the refresh token.
 
-4. **Verify the headless runner exists.** Check for `scripts/headless-skill-runner.sh`. If it doesn't exist, create it. This is the universal script that pre-fetches all data sources and passes them to `claude -p` when skills run headlessly. It should:
-   - Pull latest from git
-   - Pre-fetch: calendar (Google API), email (Gmail API), iMessage (TCC prefetch), tasks, Figma comments, reminders, health, journal, git log, weather, goals
-   - Pass all data as context to `claude -p '/skillId'`
-   - Use `--permission-mode acceptEdits` so the skill can write files
-
-5. **Recommend a schedule.** Tell the user:
+4. **Recommend a schedule.** Tell the user:
 
    "Open the Life OS app and schedule the skills you want to automate. Here's a good starting point:
 
@@ -57,9 +51,9 @@ Automation uses the Life OS Mac app, a native menu bar companion that:
 
    You can schedule any skill. The app shows all your skills from `.claude/commands/`. Just click the + button, pick a skill, set a time, and you're done."
 
-6. **Test it.** Have the user trigger one skill manually from the app to confirm it works.
+5. **Test it.** Have the user trigger one skill manually from the app to confirm it works.
 
-7. **Confirm to the user:**
+6. **Confirm to the user:**
 
    "Automation is set up. Your skills will run on schedule through the Life OS app. You can change times, add new skills, or pause automations anytime from the menu bar.
 
