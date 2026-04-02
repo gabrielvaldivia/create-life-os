@@ -55,4 +55,9 @@ health/           — health metrics and logs
 - **Weekly check-in** (`/weekly`) — Sunday evening look-ahead, goal progress, open loops
 - **Goals** (`/goals`) — set and review structured goals tied to your life pillars
 - **Sync** (`/sync`) — pull from all connected sources and update people files
+- **Sync people** (`/sync-people`) — update people files from recent communications
+- **Sync identity** (`/sync-identity`) — update identity profile with new signals from activity
+- **Goals review** (`/goals-review`) — score goal progress, identify stalled goals, realign
+- **Meeting prep** (`/meeting-prep`) — briefing for an upcoming meeting
+- **Meeting tasks** (`/meeting-tasks`) — extract tasks and decisions from meeting notes
 - **Reflect** (`/reflect`) — trace a mistake to its root cause and patch the relevant skill

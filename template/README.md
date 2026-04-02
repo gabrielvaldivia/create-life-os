@@ -18,6 +18,11 @@ Run `/setup` in Claude Code to configure your Life OS.
 | `/goals` | Set structured goals tied to your life pillars. |
 | `/reflect` | Trace a mistake to its root cause and patch the relevant skill. |
 | `/sync` | Pull from all connected sources and update your files. |
+| `/sync-people` | Update people files from recent communications. |
+| `/sync-identity` | Update your identity profile with new signals from activity. |
+| `/goals-review` | Score goal progress, identify stalled goals, realign. |
+| `/meeting-prep` | Briefing for an upcoming meeting so you walk in sharp. |
+| `/meeting-tasks` | Extract tasks and decisions from meeting notes. |
 | `/automate` | Set up the Life OS Mac app and Google API access for scheduled automation. |
 
 ## How it works
