@@ -135,8 +135,9 @@ First-time setup. Walk through configuring your Life OS step by step.
 
     1. Download **Beeper Desktop** at beeper.com and create an account
     2. In the Beeper app, connect [list only the ones they selected — iMessage, WhatsApp, Slack, etc.]
-    3. Keep Beeper Desktop running — Claude Code connects to it directly to read your messages
-    4. Once your accounts are syncing in Beeper, come back and let me know
+    3. Go to **Beeper Settings → Advanced → Desktop API beta** and turn it on. This is what enables the MCP server that Claude Code connects to.
+    4. Keep Beeper Desktop running — Claude Code connects to it directly to read your messages
+    5. Once your accounts are syncing in Beeper, come back and let me know
 
     This takes a few minutes. I'll wait."
 
