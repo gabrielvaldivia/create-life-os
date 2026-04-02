@@ -74,7 +74,13 @@ jobs:
       - name: Staple notarization ticket
         run: |
           APP_PATH="app/build/Build/Products/Release/Life OS.app"
-          xcrun stapler staple "$APP_PATH"
+          for i in 1 2 3 4 5; do
+            if xcrun stapler staple "$APP_PATH"; then
+              break
+            fi
+            echo "Staple attempt $i failed, waiting 15s..."
+            sleep 15
+          done
           cd "$(dirname "$APP_PATH")"
           zip -r "$GITHUB_WORKSPACE/LifeOS-mac.zip" "Life OS.app"
 
